@@ -26,4 +26,5 @@ public interface JakartaLanguageClientAPI extends LanguageClient {
 			JakartaDiagnosticsParams javaParams) {
 		return CompletableFuture.completedFuture(null);
 	}
+
 }

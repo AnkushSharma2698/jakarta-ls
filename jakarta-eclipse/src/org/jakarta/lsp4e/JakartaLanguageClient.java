@@ -45,7 +45,6 @@ public class JakartaLanguageClient extends LanguageClientImpl implements Jakarta
     public CompletableFuture<List<PublishDiagnosticsParams>> getJavaDiagnostics(
             JakartaDiagnosticsParams javaParams) {
         Activator.log(new Status(IStatus.INFO, "diagnostic request received", "diagnostic request receieved"));
-        
         // creating a test diagnostic
         return CompletableFutures.computeAsync((cancelChecker) -> {
             IProgressMonitor monitor = getProgressMonitor(cancelChecker);
@@ -53,14 +52,12 @@ public class JakartaLanguageClient extends LanguageClientImpl implements Jakarta
                 List<String> uris = javaParams.getUris();
                 for (String uri : uris) {
                     List<Diagnostic> diagnostics = new ArrayList<>();
-                    Range diagRange = new Range(new Position(2, 4), new Position(2, 10));
+                    Range diagRange = new Range(new Position(2, 1), new Position(2, 15));
                     diagnostics.add(new Diagnostic(diagRange, "testDiagnostic"));
                     PublishDiagnosticsParams publishDiagnostic = new PublishDiagnosticsParams(uri, diagnostics);
                     publishDiagnostics.add(publishDiagnostic);
                 }
-
                 return publishDiagnostics;
         });
     }
-
 }
