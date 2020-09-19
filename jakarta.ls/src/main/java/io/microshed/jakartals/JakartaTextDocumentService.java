@@ -69,7 +69,8 @@ public class JakartaTextDocumentService implements TextDocumentService {
 		String uri = document.getUri();
 		triggerValidationFor(Arrays.asList(uri));
 	}
-
+  
+  
 	@Override
 	public void didClose(DidCloseTextDocumentParams params) {
 		documents.onDidCloseTextDocument(params);
@@ -82,6 +83,17 @@ public class JakartaTextDocumentService implements TextDocumentService {
 	public void didSave(DidSaveTextDocumentParams params) {
 		// validate all opened java files
 		triggerValidationForAll();
+	}
+	
+	@Override
+	public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(CompletionParams position) {
+		LOGGER.info("COMPLETING");
+		List<CompletionItem> items = new ArrayList<>();
+		items.add(new CompletionItem("Do this"));
+		items.add(new CompletionItem("Or this"));
+		items.add(new CompletionItem("please?"));
+		items.add(new CompletionItem("choose something..."));
+		return CompletableFuture.completedFuture(Either.forLeft(items));
 	}
 	
 	/**
