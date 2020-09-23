@@ -88,12 +88,20 @@ public class JakartaTextDocumentService implements TextDocumentService {
 	@Override
 	public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(CompletionParams position) {
 		LOGGER.info("COMPLETING");
+		// Grab completion items from the snippet registry
+		// Generate completion items and serve back to the user
 		List<CompletionItem> items = new ArrayList<>();
 		items.add(new CompletionItem("Do this"));
 		items.add(new CompletionItem("Or this"));
 		items.add(new CompletionItem("please?"));
 		items.add(new CompletionItem("choose something..."));
 		return CompletableFuture.completedFuture(Either.forLeft(items));
+	}
+
+	@Override
+	public CompletableFuture<CompletionItem> resolveCompletionItem(CompletionItem unresolved) {
+		// TODO Auto-generated method stub
+		return TextDocumentService.super.resolveCompletionItem(unresolved);
 	}
 	
 	/**
