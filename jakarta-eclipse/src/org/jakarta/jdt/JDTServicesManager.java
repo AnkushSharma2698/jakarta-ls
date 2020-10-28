@@ -27,7 +27,6 @@ import io.microshed.jakartals.commons.JakartaDiagnosticsParams;
 
 /**
  * JDT service manager.
- *
  */
 
 public class JDTServicesManager {
