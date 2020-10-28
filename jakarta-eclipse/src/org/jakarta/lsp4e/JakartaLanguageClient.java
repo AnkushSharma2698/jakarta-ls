@@ -3,7 +3,6 @@ package org.jakarta.lsp4e;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -47,6 +46,21 @@ public class JakartaLanguageClient extends LanguageClientImpl implements Jakarta
 			contents.add(Either.forLeft("this is test hover"));
 			testHover.setContents(contents);
 			return testHover;
+		});
+	}
+	
+	/**
+	 * @author ankushsharma
+	 * @brief creates a filter to let the language server know which contexts exist in the Java Project
+	 * @param uri - String representing file from which to derive project classpath
+	 * @param snippetContext - get all the context fields from the snippets and check if they exist in this method
+	 * @return List<String>
+	 */
+	@Override
+	public CompletableFuture<List<String>> getContextBasedFilter(String uri, List<String> snippetContexts) {
+		return CompletableFutures.computeAsync((cancelChecker) -> {
+			JDTServicesManager manager = new JDTServicesManager();
+			return manager.getExistingContextsFromClassPath(uri, snippetContexts);
 		});
 	}
 
